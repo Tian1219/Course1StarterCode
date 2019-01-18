@@ -1,5 +1,6 @@
 package module1;
 
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -47,8 +48,10 @@ public class HelloWorld extends PApplet
 		
 		// Select a map provider
 		AbstractMapProvider provider = new Google.GoogleTerrainProvider();
+		AbstractMapProvider provider2 = new Microsoft.HybridProvider();
+
 		// Set a zoom level
-		int zoomLevel = 10;
+		int zoomLevel = 20;
 		
 		if (offline) {
 			// If you are working offline, you need to use this provider 
@@ -65,15 +68,16 @@ public class HelloWorld extends PApplet
 		// The 6th argument specifies the map provider.  
 		// There are several providers built-in.
 		// Note if you are working offline you must use the MBTilesMapProvider
-		map1 = new UnfoldingMap(this, 50, 50, 350, 500, provider);
-
+		map1 = new UnfoldingMap(this, 50, 50, 350, 500, provider2);
+		map2 = new UnfoldingMap(this, 400, 50, 350, 500, provider2);
 		// The next line zooms in and centers the map at 
 	    // 32.9 (latitude) and -117.2 (longitude)
 	    map1.zoomAndPanTo(zoomLevel, new Location(32.9f, -117.2f));
-		
+		map2.zoomAndPanTo(zoomLevel, new Location(32.8639383,-96.8529839));
 		// This line makes the map interactive
 		MapUtils.createDefaultEventDispatcher(this, map1);
-		
+		MapUtils.createDefaultEventDispatcher(this, map2);
+
 		// TODO: Add code here that creates map2 
 		// Then you'll modify draw() below
 
@@ -84,6 +88,7 @@ public class HelloWorld extends PApplet
 		// So far we only draw map1...
 		// TODO: Add code so that both maps are displayed
 		map1.draw();
+	map2.draw();
 	}
 
 	
